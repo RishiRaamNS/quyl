@@ -1,0 +1,25 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+/// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
+model students {
+  id           BigInt    @id @unique @default(autoincrement())
+  student_name String?
+  date_joined  DateTime? @db.Date
+  last_login   DateTime? @db.Timestamptz(6)
+}
+
+model courses {
+  id                BigInt   @id @unique @default(autoincrement())
+  title             String
+  description       String?
+  profilePictureUrl String?
+  createdAt         DateTime @default(now())
+}
