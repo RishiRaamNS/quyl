@@ -16,6 +16,8 @@ export default {
         gray: "#6F767E",
         anothergray: "#808281",
         offwhite: "#EEEEEE",
+        buttonbg: "#E9EDF1",
+        buttonfg: "#3F526E",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         card: {

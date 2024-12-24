@@ -1,19 +1,19 @@
 import React from "react";
-import { signupAction } from "@/app/actions";
+import { loginAction } from "@/app/actions";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import Link from "next/link";
 import { SubmitButton } from "@/components/submitButton";
 
-function signupPage() {
+function loginPage() {
   return (
     <>
       <form className="mt-[10%] flex flex-col min-w-64 max-w-64 mx-auto">
-        <h1 className="text-2xl font-medium">Sign up</h1>
+        <h1 className="text-2xl font-medium">Sign in</h1>
         <p className="text-sm text text-foreground">
-          Already have an account?{" "}
-          <Link className="text-primary font-medium underline" href="/login">
-            Sign in
+          Don't have an account?{" "}
+          <Link className="text-primary font-medium underline" href="/signup">
+            Sign up
           </Link>
         </p>
         <div className="flex flex-col gap-2 [&>input]:mb-3 mt-8">
@@ -27,8 +27,8 @@ function signupPage() {
             minLength={6}
             required
           />
-          <SubmitButton formAction={signupAction} pendingText="Signing up...">
-            Sign up
+          <SubmitButton formAction={loginAction} pendingText="Signing in...">
+            Sign in
           </SubmitButton>
         </div>
       </form>
@@ -36,4 +36,4 @@ function signupPage() {
   );
 }
 
-export default signupPage;
+export default loginPage;
