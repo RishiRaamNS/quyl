@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Table,
   TableBody,
@@ -19,43 +19,37 @@ import {
 import { Button } from "@/components/ui/button";
 import { DropdownMenuCheckboxItemProps } from "@radix-ui/react-dropdown-menu";
 import { AddStudent } from "./AddStudent";
+import { getStudents } from "@/services/studentService";
+import { Student } from "@/types";
+import SelectCohort from "./SelectCohort";
+import SelectCourse from "./SelectCourse";
 
 type Checked = DropdownMenuCheckboxItemProps["checked"];
 
 interface MyComponentProps {
   show: boolean;
 }
-const Dashboard: React.FC<MyComponentProps> = ({ show }) => {
+const Dashboard: React.FC<MyComponentProps> = async ({ show }) => {
+  //   const [students, setStudents] = useState<Student[]>([]);
+
+  //   useEffect(() => {
+  //     const get = async () => {
+  //       const st = await getStudents();
+  //       setStudents(st);
+  //     };
+  //     get();
+  //   });
+  const students = await getStudents();
+
   if (show) {
     return (
       <div className="bg-white mt-10 p-8 rounded-md text-black">
         <div className="flex justify-between items-center mb-10">
           <div className="flex items-center gap-x-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">Open</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Select Cohort</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem>Status Bar</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Panel</DropdownMenuCheckboxItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline">Open</Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56">
-                <DropdownMenuLabel>Select Cohort</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuCheckboxItem>Status Bar</DropdownMenuCheckboxItem>
-                <DropdownMenuCheckboxItem>Panel</DropdownMenuCheckboxItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
+            <SelectCohort />
+            <SelectCourse />
           </div>
           <AddStudent />
-
         </div>
         <Table>
           <TableHeader>
@@ -68,6 +62,13 @@ const Dashboard: React.FC<MyComponentProps> = ({ show }) => {
               <TableHead>Status</TableHead>
             </TableRow>
           </TableHeader>
+          <TableBody>
+            {students?.map((student, index) => (
+              <TableRow key={index}>
+                <TableCell>{student.student_name}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
         </Table>
       </div>
     );

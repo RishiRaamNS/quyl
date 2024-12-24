@@ -17,7 +17,6 @@ export default async function Home() {
   const {
     data: { user },
   } = await supabase.auth.getUser();
-  console.log(user);
   return (
     <SidebarLayout>
       <div className="bg-[#F6F8FA] w-[80vw] px-4 py-6">

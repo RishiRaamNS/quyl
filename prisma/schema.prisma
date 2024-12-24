@@ -14,12 +14,27 @@ model students {
   student_name String?
   date_joined  DateTime? @db.Date
   last_login   DateTime? @db.Timestamptz(6)
+  cohortId     BigInt?    // Foreign key for the cohort
+  cohort       cohorts?   @relation(fields: [cohortId], references: [id])
+  courseId   BigInt?    // Foreign key for the courses
+  courses      courses[]  @relation("StudentCourses")
 }
 
 model courses {
   id                BigInt   @id @unique @default(autoincrement())
   title             String
-  description       String?
-  profilePictureUrl String?
   createdAt         DateTime @default(now())
+  students          students[] @relation("StudentCourses")
+}
+
+model cohorts {
+  id          BigInt    @id @unique @default(autoincrement())
+  cohort_name String
+  students    students[]  // This will create a one-to-many relation with the students table
+}
+
+model classes {
+    id          BigInt    @id @unique @default(autoincrement())
+    class_name  String
+    
 }
